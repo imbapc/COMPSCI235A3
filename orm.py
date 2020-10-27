@@ -25,11 +25,13 @@ directors = Table(
 actors = Table(
     'actors', metadata,
     Column('name', String(1024), primary_key=True)
-    Column('colleagues', )
 )
 
 
-
+genres = Table(
+    'genres', metadata,
+    Column('name', String(1024), primary_key=True)
+)
 
 
 reviews = Table(
@@ -54,26 +56,16 @@ def map_model_to_tables():
     mapper(model.User, users, properties={
         '_username': users.c.username,
         '_password': users.c.password,
-        '_comments': relationship(model.Comment, backref='_user')
+        '_reviews': relationship(model.Review, backref='_user')
     })
-    mapper(model.Comment, comments, properties={
-        '_comment': comments.c.comment,
-        '_timestamp': comments.c.timestamp
+    mapper(model.Review, reviews, properties={
+        '_review': reviews.c.review,
+        '_timestamp': reviews.c.timestamp
     })
-    articles_mapper = mapper(model.Article, articles, properties={
-        '_id': articles.c.id,
-        '_date': articles.c.date,
-        '_title': articles.c.title,
-        '_first_para': articles.c.first_para,
-        '_hyperlink': articles.c.hyperlink,
-        '_image_hyperlink': articles.c.image_hyperlink,
-        '_comments': relationship(model.Comment, backref='_article')
-    })
-    mapper(model.Tag, tags, properties={
-        '_tag_name': tags.c.name,
-        '_tagged_articles': relationship(
-            articles_mapper,
-            secondary=article_tags,
-            backref="_tags"
-        )
+    movie_mapper = mapper(model.Movie, movies, properties={
+        '_id':movies.c.id,
+        '_year': movies.c.year,
+        '_title': movies.c.title,
+        '_director': movies.c.director,
+        '_Reviews': relationship(model.Review, backref='_reviews')
     })

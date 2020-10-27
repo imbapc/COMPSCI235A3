@@ -12,8 +12,8 @@ from werkzeug.security import generate_password_hash
 from sqlalchemy.orm import scoped_session
 from flask import _app_ctx_stack
 
-from covid.domain.model import User, Article, Comment, Tag
-from covid.adapters.repository import AbstractRepository
+from Movie_Web_App.domainmodel.model import Director, Actor, User, Movie, Genre
+from Movie_Web_App.adapters.repository import AbstractRepository
 
 tags = None
 
@@ -76,22 +76,22 @@ class SqlAlchemyRepository(AbstractRepository):
 
         return user
 
-    def add_article(self, article: Article):
+    def add_movie(self, movie: Movie):
         with self._session_cm as scm:
-            scm.session.add(article)
+            scm.session.add(movie)
             scm.commit()
 
-    def get_article(self, id: int) -> Article:
-        article = None
+    def get_article(self, id: int) -> Movie:
+        movie = None
         try:
-            article = self._session_cm.session.query(Article).filter(Article._id == id).one()
+            movie = self._session_cm.session.query(Movie).filter(Movie._id == id).one()
         except NoResultFound:
             # Ignore any exception and return None.
             pass
 
-        return article
+        return movie
 
-    def get_articles_by_date(self, target_date: date) -> List[Article]:
+    def get_articles_by_date(self, target_date: date) -> List[Movie]:
         if target_date is None:
             articles = self._session_cm.session.query(Article).all()
             return articles
@@ -100,21 +100,21 @@ class SqlAlchemyRepository(AbstractRepository):
             articles = self._session_cm.session.query(Article).filter(Article._date == target_date).all()
             return articles
 
-    def get_number_of_articles(self):
-        number_of_articles = self._session_cm.session.query(Article).count()
-        return number_of_articles
+    def get_number_of_movies(self):
+        number_of_movies = self._session_cm.session.query(Movie).count()
+        return number_of_movies
 
     def get_first_article(self):
-        article = self._session_cm.session.query(Article).first()
+        article = self._session_cm.session.query(Movie).first()
         return article
 
     def get_last_article(self):
         article = self._session_cm.session.query(Article).order_by(desc(Article._id)).first()
         return article
 
-    def get_articles_by_id(self, id_list):
-        articles = self._session_cm.session.query(Article).filter(Article._id.in_(id_list)).all()
-        return articles
+    def get_movies_by_id(self, id_list):
+        movies = self._session_cm.session.query(Movie).filter(Movie._id.in_(id_list)).all()
+        return movies
 
     def get_article_ids_for_tag(self, tag_name: str):
         article_ids = []
@@ -128,7 +128,7 @@ class SqlAlchemyRepository(AbstractRepository):
         else:
             tag_id = row[0]
 
-            # Retrieve article ids of articles associated with the tag.
+            # Retrieve article ids of movies associated with the tag.
             article_ids = self._session_cm.session.execute(
                     'SELECT article_id FROM article_tags WHERE tag_id = :tag_id ORDER BY article_id ASC',
                     {'tag_id': tag_id}
