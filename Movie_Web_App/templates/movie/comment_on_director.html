@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+{% block content %}
+<main id="main">
+    <p>{{director.director_full_name}}</p>
+    {% for movie in director.movie_list%}
+        <a href="{{url_for('movie_bp.movie', title=movie.title, year=movie.year)}}">{{movie.title}}, {{movie.year}}</a><br>
+    {% endfor %}
+</main>
+{% endblock %}

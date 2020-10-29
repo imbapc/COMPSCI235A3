@@ -1,0 +1,19 @@
+{% extends 'layout.html'%}
+{% block content %}
+<main id="main">
+<div>
+    <form method="POST" action="{{handler_url}}">
+        <select name= category method=["GET","POST"]>
+            <option value= "Movie" SELECTED>"Movie"</option>
+            <option value= "Actor">"Actor"</option>
+            <option value= "Genre">"Genre"</option>
+            <option value= "Director">"Director"</option>
+        </select>
+        {{form.csrf_token}}
+        <div>
+            {{form.search}}{{form.submit}}
+        </div>
+    </form>
+</div>
+</main>
+{% endblock %}

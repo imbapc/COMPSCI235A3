@@ -1,6 +1,6 @@
 from sqlalchemy import select, inspect
 
-from covid.adapters.orm import metadata
+from Movie_Web_App.adapters.orm import metadata
 
 def test_database_populate_inspect_table_names(database_engine):
 
@@ -24,6 +24,7 @@ def test_database_populate_select_all_tags(database_engine):
             all_tag_names.append(row['name'])
 
         assert all_tag_names == ['New Zealand', 'Health', 'World', 'Politics', 'Travel', 'Entertainment', 'Business', 'Sport', 'Lifestyle', 'Opinion']
+
 
 def test_database_populate_select_all_users(database_engine):
 

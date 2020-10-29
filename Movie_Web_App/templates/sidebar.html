@@ -1,0 +1,14 @@
+<aside id="sidebar">
+
+    <header>
+        <h1>Editor's picks</h1>
+    </header>
+
+    {% for movie in random_movies %}
+        <div class="movie-container">
+            <img src ="{{movie.picture}}" class="img-small">
+            <a href="{{url_for('movie_bp.movie', title=movie.title, year=movie.year)}}">{{ movie.title }}, ({{ movie.year }}).
+            </a>
+        </div>
+    {% endfor %}
+</aside>

@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% block content %}
+<main id="main">
+    <h1>{{actor.actor_full_name}}</h1>
+    <p>Act in: </p>
+    {% for movie in actor.act_movie%}
+        <a href="{{url_for('movie_bp.movie', title=movie.title, year=movie.year)}}">{{movie.title}}, {{movie.year}}</a> &nbsp
+    {% endfor %}
+    <br>
+    <br>
+    <p> Corporate with: </p>
+    {% for colleague in actor.actor_colleague %}
+        <a href="{{url_for('movie_bp.actor', actor_full_name=colleague.actor_full_name)}}">
+        {{colleague.actor_full_name}} &nbsp </a>
+    {% endfor %}
+</main>
+{% endblock %}

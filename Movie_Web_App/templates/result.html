@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% block content %}
+<main id="main">
+    <div>
+        {% for content in result %}
+        <a href="{{url_for('movie_bp.movie', title=content.title, year=content.year)}}">
+            {{content.title}}
+        </a>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

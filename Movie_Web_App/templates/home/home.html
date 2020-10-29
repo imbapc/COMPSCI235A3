@@ -1,0 +1,23 @@
+{% extends 'layout.html' %} {% block content %}
+<main id="main">
+<div class="movie-container">
+    <p>Most Popular</p>
+    {% for movie in popular_movies %}
+    <img src ="{{movie.picture}}" class="img-small">
+    <a href="{{url_for('movie_bp.movie', title=movie.title, year=movie.year)}}">{{movie.title}}, {{movie.year}}</a><br>
+    {% endfor %}
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+<div class="movie-container">
+    <p>New Arrive</p>
+    {% for movie in recent_movies %}
+        <img src ="{{movie.picture}}" class="img-small">
+        <a href="{{url_for('movie_bp.movie', title=movie.title, year=movie.year)}}">{{movie.title}}, {{movie.year}}</a>
+        <br>
+    {% endfor %}
+</div>
+</main>
+{% endblock %}

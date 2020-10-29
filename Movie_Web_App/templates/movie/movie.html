@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block content %}
+<main id="main">
+    <h1>{{content_movie.title}}</h1>
+    <img src ="{{content_movie.picture}}" class="img-small">
+    <a href="{{url_for('movie_bp.director', director_full_name=content_movie.director.director_full_name)}}">
+        director: {{content_movie.director.director_full_name}}</a>
+    <p> Actors: </p>
+    {% for actor in content_movie.actors %}
+    <a href="{{url_for('movie_bp.actor', actor_full_name=actor.actor_full_name)}}">
+        {{actor.actor_full_name}} &nbsp </a>
+    {% endfor %}
+    <p>Description: {{content_movie.description}}</p>
+    <button type="button" class="btn-general" onclick="location.href='{{add_review_url}}'">Comment</button>
+    <div style="clear:both">
+        {% for review in review_list %}
+        <p>{{review.review_text}}, by {{review.username}}, {{review.human_time}}</p>
+        {% endfor %}
+    </div>
+</main>
+{% endblock%}

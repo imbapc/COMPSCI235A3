@@ -1,5 +1,6 @@
 import csv
 import os
+from abc import ABC
 
 from datetime import date
 from typing import List
@@ -12,10 +13,8 @@ from werkzeug.security import generate_password_hash
 from sqlalchemy.orm import scoped_session
 from flask import _app_ctx_stack
 
-from Movie_Web_App.domainmodel.model import Director, Actor, User, Movie, Genre
+from Movie_Web_App.domainmodel.Model import Director, Actor, User, Movie, Genre, Review
 from Movie_Web_App.adapters.repository import AbstractRepository
-
-tags = None
 
 
 class SessionContextManager:
@@ -81,98 +80,73 @@ class SqlAlchemyRepository(AbstractRepository):
             scm.session.add(movie)
             scm.commit()
 
-    def get_article(self, id: int) -> Movie:
+    def get_movie_by_id(self, movie_id: int) -> Movie:
         movie = None
         try:
-            movie = self._session_cm.session.query(Movie).filter(Movie._id == id).one()
+            movie = self._session_cm.session.query(Movie).filter(Movie._id == movie_id).one()
         except NoResultFound:
             # Ignore any exception and return None.
             pass
 
         return movie
 
-    def get_articles_by_date(self, target_date: date) -> List[Movie]:
-        if target_date is None:
-            articles = self._session_cm.session.query(Article).all()
-            return articles
-        else:
-            # Return articles matching target_date; return an empty list if there are no matches.
-            articles = self._session_cm.session.query(Article).filter(Article._date == target_date).all()
-            return articles
-
     def get_number_of_movies(self):
         number_of_movies = self._session_cm.session.query(Movie).count()
         return number_of_movies
-
-    def get_first_article(self):
-        article = self._session_cm.session.query(Movie).first()
-        return article
-
-    def get_last_article(self):
-        article = self._session_cm.session.query(Article).order_by(desc(Article._id)).first()
-        return article
 
     def get_movies_by_id(self, id_list):
         movies = self._session_cm.session.query(Movie).filter(Movie._id.in_(id_list)).all()
         return movies
 
-    def get_article_ids_for_tag(self, tag_name: str):
-        article_ids = []
+    def get_review(self, movie: Movie) -> List[Review]:
+        reviews = self._session_cm.session.query(Review).all()
+        return reviews
 
-        # Use native SQL to retrieve article ids, since there is no mapped class for the article_tags table.
-        row = self._session_cm.session.execute('SELECT id FROM tags WHERE name = :tag_name', {'tag_name': tag_name}).fetchone()
-
-        if row is None:
-            # No tag with the name tag_name - create an empty list.
-            article_ids = list()
-        else:
-            tag_id = row[0]
-
-            # Retrieve article ids of movies associated with the tag.
-            article_ids = self._session_cm.session.execute(
-                    'SELECT article_id FROM article_tags WHERE tag_id = :tag_id ORDER BY article_id ASC',
-                    {'tag_id': tag_id}
-            ).fetchall()
-            article_ids = [id[0] for id in article_ids]
-
-        return article_ids
-
-    def get_date_of_previous_article(self, article: Article):
-        result = None
-        prev = self._session_cm.session.query(Article).filter(Article._date < article.date).order_by(desc(Article._date)).first()
-
-        if prev is not None:
-            result = prev.date
-
-        return result
-
-    def get_date_of_next_article(self, article: Article):
-        result = None
-        next = self._session_cm.session.query(Article).filter(Article._date > article.date).order_by(asc(Article._date)).first()
-
-        if next is not None:
-            result = next.date
-
-        return result
-
-    def get_tags(self) -> List[Tag]:
-        tags = self._session_cm.session.query(Tag).all()
-        return tags
-
-    def add_tag(self, tag: Tag):
+    def add_review(self, review: Review):
+        super().add_comment(review)
         with self._session_cm as scm:
-            scm.session.add(tag)
+            scm.session.add(review)
             scm.commit()
 
-    def get_comments(self) -> List[Comment]:
-        comments = self._session_cm.session.query(Comment).all()
-        return comments
-
-    def add_comment(self, comment: Comment):
-        super().add_comment(comment)
+    def add_actor(self, actor_full_name: str):
         with self._session_cm as scm:
-            scm.session.add(comment)
+            scm.session.add(actor_full_name)
             scm.commit()
+
+    def get_actor(self, actor_full_name: str) -> Actor:
+        actor = None
+        try:
+            actor = self._session_cm.session.query(Actor).filtered_by(_name=actor_full_name).one()
+        except NoResultFound:
+            pass
+        return actor
+
+    def add_director(self, director: Director):
+        with self._session_cm as scm:
+            scm.session.add(director)
+            scm.commit()
+
+    def get_director(self, director_full_name: str) -> Director:
+        director = None
+        try:
+            director = self._session_cm.session.query(Director).filtered_by(_name=director_full_name).one()
+        except NoResultFound:
+            pass
+        return director
+
+    def add_genre(self, genre: Genre):
+        with self._session_cm as scm:
+            scm.session.add(genre)
+            scm.commit()
+
+    def get_genre(self, genre_name: str) -> Genre:
+        genre = None
+        try:
+            genre = self._session_cm.session.query(Genre).filtered_by(_name=genre_name).one()
+        except NoResultFound:
+            pass
+        return genre
+
 
 def article_record_generator(filename: str):
     with open(filename, mode='r', encoding='utf-8-sig') as infile:
@@ -286,4 +260,3 @@ def populate(engine: Engine, data_path: str):
 
     conn.commit()
     conn.close()
-
