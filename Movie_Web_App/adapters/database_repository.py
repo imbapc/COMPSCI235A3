@@ -219,6 +219,18 @@ def populate(engine: Engine, data_path: str):
         VALUES (?, ?, ?)"""
     cursor.executemany(insert_users, generic_generator(os.path.join(data_path, 'users.csv'), process_user))
 
+    insert_directors = """
+        INSERT INTO directors(
+        name)
+        VALUES(?)"""
+    cursor.executemany(insert_directors, director_record_generator(data_path, 'Data1000Movies.csv'))
+
+    insert_genres = """
+        INSERT INTO genres(
+        name)
+        VALUES(?)"""
+    cursor.executemany(insert_genres, genre_record_generator(data_path, 'Data1000Movies.csv'))
+
     insert_reviews = """
         INSERT INTO comments (
         id, user_id, movie_id, review, timestamp)
