@@ -17,7 +17,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../235PROJECTS/Assignment2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../235PROJECTS/COMPSCI-235-07_COVID_web_app_sqlitedb" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunManager">
@@ -64,26 +64,30 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="294" y="159" width="1092" height="716" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1680.1010@0.0.1680.1010" timestamp="1604037700335" />
-    <state x="620" y="259" key="FileChooserDialogImpl" timestamp="1604045984168">
+    <state x="92" y="92" width="1496" height="826" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1604052449613">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state x="620" y="259" key="FileChooserDialogImpl/0.0.1680.1010@0.0.1680.1010" timestamp="1604045984168" />
-    <state width="1659" height="272" key="GridCell.Tab.0.bottom" timestamp="1604045639156">
+    <state x="92" y="92" width="1496" height="826" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1680.1010@0.0.1680.1010" timestamp="1604052449613" />
+    <state x="620" y="259" key="FileChooserDialogImpl" timestamp="1604047274523">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1659" height="272" key="GridCell.Tab.0.bottom/0.0.1680.1010@0.0.1680.1010" timestamp="1604045639156" />
-    <state width="1659" height="272" key="GridCell.Tab.0.center" timestamp="1604045639156">
+    <state x="620" y="259" key="FileChooserDialogImpl/0.0.1680.1010@0.0.1680.1010" timestamp="1604047274523" />
+    <state width="1659" height="272" key="GridCell.Tab.0.bottom" timestamp="1604052454241">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1659" height="272" key="GridCell.Tab.0.center/0.0.1680.1010@0.0.1680.1010" timestamp="1604045639156" />
-    <state width="1659" height="272" key="GridCell.Tab.0.left" timestamp="1604045639156">
+    <state width="1659" height="272" key="GridCell.Tab.0.bottom/0.0.1680.1010@0.0.1680.1010" timestamp="1604052454241" />
+    <state width="1659" height="272" key="GridCell.Tab.0.center" timestamp="1604052454241">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1659" height="272" key="GridCell.Tab.0.left/0.0.1680.1010@0.0.1680.1010" timestamp="1604045639156" />
-    <state width="1659" height="272" key="GridCell.Tab.0.right" timestamp="1604045639156">
+    <state width="1659" height="272" key="GridCell.Tab.0.center/0.0.1680.1010@0.0.1680.1010" timestamp="1604052454241" />
+    <state width="1659" height="272" key="GridCell.Tab.0.left" timestamp="1604052454241">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1659" height="272" key="GridCell.Tab.0.right/0.0.1680.1010@0.0.1680.1010" timestamp="1604045639156" />
+    <state width="1659" height="272" key="GridCell.Tab.0.left/0.0.1680.1010@0.0.1680.1010" timestamp="1604052454241" />
+    <state width="1659" height="272" key="GridCell.Tab.0.right" timestamp="1604052454241">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1659" height="272" key="GridCell.Tab.0.right/0.0.1680.1010@0.0.1680.1010" timestamp="1604052454241" />
     <state x="351" y="151" key="SettingsEditor" timestamp="1604039873640">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
@@ -104,6 +108,10 @@
           <url>file://$PROJECT_DIR$/Movie_Web_App/domainmodel/Model.py</url>
           <line>115</line>
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/tests/integration/test_database_repository.py</url>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -70,6 +70,7 @@ class SqlAlchemyRepository(AbstractRepository):
         user = None
         try:
             user = self._session_cm.session.query(User).filter_by(_username=username).one()
+            print(user)
         except NoResultFound:
             # Ignore any exception and return None.
             pass
@@ -89,7 +90,6 @@ class SqlAlchemyRepository(AbstractRepository):
             pass
         return movie
 
-
     def get_movie_by_id(self, movie_id: int) -> Movie:
         movie = None
         try:
@@ -99,6 +99,20 @@ class SqlAlchemyRepository(AbstractRepository):
             pass
 
         return movie
+
+    def get_movie_list(self) -> list:
+        movies = self._session_cm.session.query(Movie).all()
+        return movies
+
+    def add_movie_popularity(self, movie: Movie):
+        with self._session_cm as scm:
+            movie.popularity += 1
+            scm.commit()
+
+    def get_movie_by_popularity(self):
+        movies = self._session_cm.session.query(Movie).all()
+        result = movies.order_by(movies.popularity.desc())
+        return result
 
     def get_number_of_movies(self):
         number_of_movies = self._session_cm.session.query(Movie).count()
@@ -120,7 +134,7 @@ class SqlAlchemyRepository(AbstractRepository):
 
     def add_actor(self, actor_full_name: str):
         with self._session_cm as scm:
-            scm.session.add(actor_full_name)
+            scm.session.add(Actor(actor_full_name))
             scm.commit()
 
     def get_actor(self, actor_full_name: str) -> Actor:
@@ -214,7 +228,7 @@ def populate(engine: Engine, data_path: str):
 
     insert_movies = """
         INSERT INTO movies (
-        id, year, title, director)
+        id, title, year, director)
         VALUES (?, ?, ?, ?)"""
     cursor.executemany(insert_movies, movie_record_generator(data_path))
 

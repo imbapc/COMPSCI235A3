@@ -29,7 +29,7 @@ class MemoryRepository(AbstractRepository):
         self._users.append(user)
 
     def get_user(self, username) -> User:
-        return next((user for user in self._users if user.username == username.lower()), None)
+        return next((user for user in self._users if user.username == username), None)
 
     def add_actor(self, actor_full_name: str):
         self._actors.append(actor_full_name)

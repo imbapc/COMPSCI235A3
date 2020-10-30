@@ -80,6 +80,6 @@ def test_database_populate_select_all_movies(database_engine):
 
         nr_movies = len(all_movies)
         assert nr_movies == 1000
-        assert all_movies[0] == ('2014', 'Guardians of the Galaxy')
+        assert all_movies[0] == ('Guardians of the Galaxy', 2014)
 
 

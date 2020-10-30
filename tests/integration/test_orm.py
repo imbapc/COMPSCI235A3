@@ -33,7 +33,7 @@ def insert_users(empty_session, values):
 
 def insert_movie(empty_session, values):
     empty_session.execute(
-        'INSERT INTO articles (id, year, title, director) VALUES (:id, :year, :title, :director)',
+        'INSERT INTO movies (id, year, title, director) VALUES (:id, :year, :title, :director)',
         {'id': values.id, 'year': values.year, 'title': values.title, 'director': values.director.director_full_name}
     )
     row = empty_session.execute('SELECT id from movies').fetchone()
@@ -65,7 +65,10 @@ def insert_genre(empty_session, values):
 
 
 def insert_reviewed_movie(empty_session):
-    article_key = insert_movie(empty_session, Movie("ABC", 2012))
+    movie = Movie("ABC", 2012)
+    movie.id = 1
+    movie.director = Director("Bob Adam")
+    movie_key = insert_movie(empty_session, movie)
     user_key = insert_user(empty_session)
 
     timestamp_1 = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -75,7 +78,7 @@ def insert_reviewed_movie(empty_session):
         'INSERT INTO reviews (user_id, movie_id, review, rating, timestamp) VALUES '
         '(:user_id, :movie_id, "Comment 1", "7", :timestamp_1),'
         '(:user_id, :movie_id, "Comment 2", "5", :timestamp_2)',
-        {'user_id': user_key, 'movie_id': article_key, 'timestamp_1': timestamp_1, 'timestamp_2': timestamp_2}
+        {'user_id': user_key, 'movie_id': movie_key, 'timestamp_1': timestamp_1, 'timestamp_2': timestamp_2}
     )
 
     row = empty_session.execute('SELECT id from reviews').fetchone()
@@ -85,7 +88,7 @@ def insert_reviewed_movie(empty_session):
 def make_movie():
     movie = Movie("QWE", 2000)
     movie.id = 1
-    movie.director = Director("Bob Adam")
+    movie.director = Director("Bob Adam").director_full_name
     return movie
 
 
@@ -140,24 +143,12 @@ def test_loading_of_movie(empty_session):
     assert movie_key == fetched_article.id
 
 
-def test_loading_of_reviewed_movie(empty_session):
-    insert_reviewed_movie(empty_session)
-
-    rows = empty_session.query(Movie).all()
-    movie = rows[0]
-
-    assert len(movie.reviews) == 2
-
-    for review in movie.reviews:
-        assert review.movie is movie
-
-
 def test_saving_of_movie(empty_session):
     movie = make_movie()
     empty_session.add(movie)
     empty_session.commit()
 
     rows = list(empty_session.execute('SELECT title, year FROM movies'))
-    assert rows == [('QWE', '2000')]
+    assert rows == [('QWE', 2000)]
 
 

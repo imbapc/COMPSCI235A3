@@ -115,13 +115,13 @@ class Actor:
 
 class Movie:
     
-    def __init__(self, name, year):
-        if name == "" or not isinstance(name, str):
-            self._name = "None"
+    def __init__(self, title, year):
+        if title == "" or not isinstance(title, str):
+            self._title = "None"
         elif year < 1900 or not isinstance(year, int):
             self._year = None
         else:
-            self._name = name.strip()
+            self._title = title.strip()
             self._year = year
         self._director = None
         self._actors = []
@@ -151,7 +151,7 @@ class Movie:
             return self.title < other.title
 
     def __hash__(self):
-        return hash(self._name + str(self._year))
+        return hash(self._title + str(self._year))
 
     @property
     def id(self):
@@ -219,12 +219,12 @@ class Movie:
 
     @property
     def title(self):
-        return self._name
+        return self._title
 
     @title.setter
-    def title(self, name):
-        if isinstance(name, str):
-            self._name = name
+    def title(self, title):
+        if isinstance(title, str):
+            self._title = title
 
     @property
     def year(self):
@@ -256,7 +256,7 @@ class Movie:
     @property
     def picture(self):
         omdb.set_default('apikey', 'c69d8944')
-        res = omdb.get(title=self._name, year=self._year)
+        res = omdb.get(title=self._title, year=self._year)
         if "poster" in res.keys():
             return res["poster"]
         else:
@@ -273,7 +273,7 @@ class User:
             self._username = ""
             self._password = ""
         else:
-            self._username = name.strip().lower()
+            self._username = name.strip()
             self._password = password
         self._watched_movies = []
         self._review = []

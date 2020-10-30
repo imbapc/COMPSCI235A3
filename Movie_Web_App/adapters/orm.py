@@ -49,6 +49,7 @@ movies = Table(
     Column('id', Integer, primary_key=True, autoincrement=True),
     Column('year', Integer, nullable=False),
     Column('title', String(255), nullable=False),
+    Column('popularity', Integer, default=0),
     Column('director', ForeignKey('directors.name'))
 )
 
@@ -65,9 +66,16 @@ def map_model_to_tables():
         '_rating': reviews.c.rating
     })
     movie_mapper = mapper(Model.Movie, movies, properties={
-        '_id':movies.c.id,
+        '_id': movies.c.id,
         '_year': movies.c.year,
         '_title': movies.c.title,
         '_director': movies.c.director,
-        '_Reviews': relationship(Model.Review, backref='_reviews')
+        '_Reviews': relationship(Model.Review, backref='_reviews')})
+
+    actor_mapper = mapper(Model.Actor, actors, properties={
+        '_name': actors.c.name
+    })
+
+    mapper(Model.Director, directors, properties={
+        '_name': directors.c.name
     })
