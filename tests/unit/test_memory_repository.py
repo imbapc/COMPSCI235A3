@@ -20,10 +20,10 @@ def test_repository_does_not_retrieve_a_non_existent_user(in_memory_repo):
 
 
 def test_repository_can_retrieve_movie_count(in_memory_repo):
-    number_of_articles = len(in_memory_repo.get_movie_list())
+    number_of_movies = len(in_memory_repo.get_movie_list())
 
     # Check that the query returned 6 Articles.
-    assert number_of_articles == 1000
+    assert number_of_movies == 1000
 
 
 def test_repository_can_add_movie(in_memory_repo):

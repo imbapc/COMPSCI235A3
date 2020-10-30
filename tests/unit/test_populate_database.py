@@ -1,4 +1,4 @@
-from sqlalchemy import select, inspect
+from SQLAlchemy import select, inspect
 
 from Movie_Web_App.adapters.orm import metadata
 
