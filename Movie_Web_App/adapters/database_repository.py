@@ -160,19 +160,30 @@ class SqlAlchemyRepository(AbstractRepository):
 
 def movie_record_generator(filename: str):
     file_data = MovieFileCSVReader(filename)
-    return file_data.dataset_of_movies
+    file_data.read_csv_file()
+    for movie in file_data.dataset_of_movies:
+        yield movie.id, movie.title, movie.year, movie.director.director_full_name
+
 
 def actor_record_generator(filename: str):
     file_data = MovieFileCSVReader(filename)
-    return file_data.dataset_of_actors
+    file_data.read_csv_file()
+    for actor in file_data.dataset_of_actors:
+        yield actor.actor_full_name,
+
 
 def director_record_generator(filename: str):
     file_data = MovieFileCSVReader(filename)
-    return file_data.dataset_of_directors
+    file_data.read_csv_file()
+    for director in file_data.dataset_of_directors:
+        yield director.director_full_name,
+
 
 def genre_record_generator(filename: str):
     file_data = MovieFileCSVReader(filename)
-    return file_data.dataset_of_genres
+    file_data.read_csv_file()
+    for genre in file_data.dataset_of_genres:
+        yield genre.genre_name,
 
 
 def generic_generator(filename, post_process=None):
@@ -204,14 +215,14 @@ def populate(engine: Engine, data_path: str):
     insert_movies = """
         INSERT INTO movies (
         id, year, title, director)
-        VALUES (?, ?, ?, ?, )"""
-    cursor.executemany(insert_movies, movie_record_generator(os.path.join(data_path, 'Data1000Movies.csv')))
+        VALUES (?, ?, ?, ?)"""
+    cursor.executemany(insert_movies, movie_record_generator(data_path))
 
     insert_actors = """
         INSERT INTO actors(
         name)
         VALUES(?)"""
-    cursor.executemany(insert_actors, actor_record_generator(data_path, 'Data1000Movies.csv'))
+    cursor.executemany(insert_actors, actor_record_generator(data_path))
 
     insert_users = """
         INSERT INTO users (
@@ -223,18 +234,18 @@ def populate(engine: Engine, data_path: str):
         INSERT INTO directors(
         name)
         VALUES(?)"""
-    cursor.executemany(insert_directors, director_record_generator(data_path, 'Data1000Movies.csv'))
+    cursor.executemany(insert_directors, director_record_generator(data_path))
 
     insert_genres = """
         INSERT INTO genres(
         name)
         VALUES(?)"""
-    cursor.executemany(insert_genres, genre_record_generator(data_path, 'Data1000Movies.csv'))
+    cursor.executemany(insert_genres, genre_record_generator(data_path))
 
     insert_reviews = """
-        INSERT INTO comments (
-        id, user_id, movie_id, review, timestamp)
-        VALUES (?, ?, ?, ?, ?)"""
+        INSERT INTO reviews (
+        id, movie_id, review, rating, user_id, timestamp)
+        VALUES (?, ?, ?, ?, ?, ?)"""
     cursor.executemany(insert_reviews, generic_generator(os.path.join(data_path, 'reviews.csv')))
 
     conn.commit()

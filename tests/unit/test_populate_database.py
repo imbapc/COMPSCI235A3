@@ -1,4 +1,4 @@
-from SQLAlchemy import select, inspect
+from sqlalchemy import select, inspect
 
 from Movie_Web_App.adapters.orm import metadata
 
@@ -6,13 +6,13 @@ def test_database_populate_inspect_table_names(database_engine):
 
     # Get table information
     inspector = inspect(database_engine)
-    assert inspector.get_table_names() == ['directors', 'movies', 'reviews', 'actors', 'genres', 'users']
+    assert inspector.get_table_names() == ['actors', 'directors', 'genres', 'movies', 'reviews', 'users']
 
 def test_database_populate_select_all_actors(database_engine):
 
     # Get table information
     inspector = inspect(database_engine)
-    name_of_actors_table = inspector.get_table_names()[3]
+    name_of_actors_table = inspector.get_table_names()[0]
 
     with database_engine.connect() as connection:
         # query for records in table tags
@@ -23,7 +23,8 @@ def test_database_populate_select_all_actors(database_engine):
         for row in result:
             all_actors_names.append(row['name'])
 
-        assert all_actors_names == ['New Zealand', 'Health', 'World', 'Politics', 'Travel', 'Entertainment', 'Business', 'Sport', 'Lifestyle', 'Opinion']
+        assert all_actors_names[0] == 'Chris Pratt'
+        assert all_actors_names[1] == 'Vin Diesel'
 
 
 def test_database_populate_select_all_users(database_engine):
@@ -47,7 +48,7 @@ def test_database_populate_select_all_reviews(database_engine):
 
     # Get table information
     inspector = inspect(database_engine)
-    name_of_comments_table = inspector.get_table_names()[2]
+    name_of_comments_table = inspector.get_table_names()[4]
 
     with database_engine.connect() as connection:
         # query for records in table comments
@@ -56,17 +57,17 @@ def test_database_populate_select_all_reviews(database_engine):
 
         all_comments = []
         for row in result:
-            all_comments.append((row['id'], row['user_id'], row['article_id'], row['comment']))
+            all_comments.append((row['id'], row['user_id'], row['movie_id'], row['review']))
 
-        assert all_comments == [(1, 2, 1, 'Oh no, COVID-19 has hit New Zealand'),
-                                (2, 1, 1, 'Yeah Freddie, bad news'),
-                                (3, 3, 1, "I hope it's not as bad here as Italy!")]
+        assert all_comments == [(1, 2, 1, 'This is a good movie'),
+                                (2, 1, 1, 'It is funny'),
+                                (3, 3, 1, 'I do not like it')]
 
 def test_database_populate_select_all_movies(database_engine):
 
     # Get table information
     inspector = inspect(database_engine)
-    name_of_movies_table = inspector.get_table_names()[1]
+    name_of_movies_table = inspector.get_table_names()[3]
 
     with database_engine.connect() as connection:
         # query for records in table articles
@@ -77,10 +78,8 @@ def test_database_populate_select_all_movies(database_engine):
         for row in result:
             all_movies.append((row['title'], row['year']))
 
-        nr_articles = len(all_movies)
-
-        assert all_movies[0] == ('Guardians of the Galaxy', 2014)
-        assert all_movies[nr_articles//2] == (89, 'Covid 19 coronavirus: Queen to make speech urging Britain to rise to the unprecedented challenges of pandemic')
-        assert all_movies[nr_articles-1] == (177, 'Covid 19 coronavirus: Kiwi mum on the heartbreak of losing her baby in lockdown')
+        nr_movies = len(all_movies)
+        assert nr_movies == 1000
+        assert all_movies[0] == ('2014', 'Guardians of the Galaxy')
 
 

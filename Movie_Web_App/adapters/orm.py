@@ -4,7 +4,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import mapper, relationship
 
-from Movie_Web_App.domainmodel import model
+from Movie_Web_App.domainmodel import Model
 
 metadata = MetaData()
 
@@ -37,14 +37,15 @@ genres = Table(
 reviews = Table(
     'reviews', metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
-    Column('user_id', ForeignKey('users.id')),
     Column('movie_id', ForeignKey('movies.id')),
     Column('review', String(1024), nullable=False),
+    Column('rating', Integer, nullable=False),
+    Column('user_id', ForeignKey('users.id')),
     Column('timestamp', DateTime, nullable=False)
 )
 
 movies = Table(
-    'movie', metadata,
+    'movies', metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
     Column('year', Integer, nullable=False),
     Column('title', String(255), nullable=False),
@@ -53,19 +54,20 @@ movies = Table(
 
 
 def map_model_to_tables():
-    mapper(model.User, users, properties={
+    mapper(Model.User, users, properties={
         '_username': users.c.username,
         '_password': users.c.password,
-        '_reviews': relationship(model.Review, backref='_user')
+        '_reviews': relationship(Model.Review, backref='_user')
     })
-    mapper(model.Review, reviews, properties={
+    mapper(Model.Review, reviews, properties={
         '_review': reviews.c.review,
-        '_timestamp': reviews.c.timestamp
+        '_timestamp': reviews.c.timestamp,
+        '_rating': reviews.c.rating
     })
-    movie_mapper = mapper(model.Movie, movies, properties={
+    movie_mapper = mapper(Model.Movie, movies, properties={
         '_id':movies.c.id,
         '_year': movies.c.year,
         '_title': movies.c.title,
         '_director': movies.c.director,
-        '_Reviews': relationship(model.Review, backref='_reviews')
+        '_Reviews': relationship(Model.Review, backref='_reviews')
     })

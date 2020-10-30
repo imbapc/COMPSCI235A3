@@ -17,7 +17,36 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../235PROJECTS/Assignment2" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RunManager">
+    <configuration name="pytest" type="tests" factoryName="py.test" nameIsGenerated="true">
+      <module name="COMPSCI235A3" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="E:\235PROJECTS\Assignment2\venv\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" />
+        </ENTRIES>
+      </EXTENSION>
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;CUSTOM&quot;" />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -31,6 +60,34 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="294" y="159" width="1092" height="716" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604037700335">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="294" y="159" width="1092" height="716" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1680.1010@0.0.1680.1010" timestamp="1604037700335" />
+    <state x="620" y="259" key="FileChooserDialogImpl" timestamp="1604045984168">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="620" y="259" key="FileChooserDialogImpl/0.0.1680.1010@0.0.1680.1010" timestamp="1604045984168" />
+    <state width="1659" height="272" key="GridCell.Tab.0.bottom" timestamp="1604045639156">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1659" height="272" key="GridCell.Tab.0.bottom/0.0.1680.1010@0.0.1680.1010" timestamp="1604045639156" />
+    <state width="1659" height="272" key="GridCell.Tab.0.center" timestamp="1604045639156">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1659" height="272" key="GridCell.Tab.0.center/0.0.1680.1010@0.0.1680.1010" timestamp="1604045639156" />
+    <state width="1659" height="272" key="GridCell.Tab.0.left" timestamp="1604045639156">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1659" height="272" key="GridCell.Tab.0.left/0.0.1680.1010@0.0.1680.1010" timestamp="1604045639156" />
+    <state width="1659" height="272" key="GridCell.Tab.0.right" timestamp="1604045639156">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1659" height="272" key="GridCell.Tab.0.right/0.0.1680.1010@0.0.1680.1010" timestamp="1604045639156" />
+    <state x="351" y="151" key="SettingsEditor" timestamp="1604039873640">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="351" y="151" key="SettingsEditor/0.0.1680.1010@0.0.1680.1010" timestamp="1604039873640" />
     <state x="603" y="343" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1604022914688">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -39,5 +96,16 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="481" y="181" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1603841206393" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Movie_Web_App/domainmodel/Model.py</url>
+          <line>115</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
